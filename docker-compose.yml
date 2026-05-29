@@ -21,6 +21,9 @@ services:
       DB_USER: ${DB_USER}
       DB_DATABASE_NAME: ${DB_DATABASE_NAME}
       DB_PASSWORD: ${DB_PASSWORD}
+      NGROK_URL: ${NGROK_URL}
+      MERCADOPAGO_ACCESS_TOKEN: ${MERCADOPAGO_ACCESS_TOKEN}
+      JWT_SECRET: ${JWT_SECRET}
     expose:
       - "3000"
     depends_on:
