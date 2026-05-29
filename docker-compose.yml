@@ -1,0 +1,28 @@
+services:
+  database:
+    image: mysql:lts
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: moonlight
+      MYSQL_USER: root
+      MYSQL_PASSWORD: moonshinelightsky
+    ports:
+      - "3306:3306"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend_service
+    expose:
+      - "3000"
+    depends_on:
+      - database
+
+networks:
+  app-network:
+
+
+
+
