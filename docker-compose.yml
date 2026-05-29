@@ -39,6 +39,7 @@ services:
         VITE_API_URL: ${VITE_API_URL}
         VITE_USE_MOCK: ${VITE_USE_MOCK}
         VITE_MP_PUBLIC_KEY: ${VITE_MP_PUBLIC_KEY}
+    container_name: frontend_service
     restart: unless-stopped
     depends_on:
       - backend
