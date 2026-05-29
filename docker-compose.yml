@@ -23,6 +23,7 @@ services:
   nginx:
     image: nginx:1.31.1-alpine3.23
     restart: unless-stopped
+    container_name: nginx_service
     ports:
       - "80:80"
       - "443:443"
