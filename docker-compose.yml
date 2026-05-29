@@ -12,13 +12,21 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: ./Moonlight_Backend
       dockerfile: Dockerfile
     container_name: backend_service
+    restart: unless-stopped
+    environment:
+      DB_HOST: database
+      DB_USER: ${DB_USER}
+      DB_DATABASE_NAME: ${DB_DATABASE_NAME}
+      DB_PASSWORD: ${DB_PASSWORD}
     expose:
       - "3000"
     depends_on:
       - database
+    networks:
+      - internal
 
   frontend:
     build:
