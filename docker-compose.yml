@@ -69,4 +69,3 @@ services:
 networks:
   internal:
     driver: bridge
-  app-network:
