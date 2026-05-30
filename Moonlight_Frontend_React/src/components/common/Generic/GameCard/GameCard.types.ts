@@ -1,8 +1,11 @@
-import type { Game } from "../../../../@types/Game";
+import type { GameResponseDTO } from "../../../../@types/game/game.dto";
 
 export type GameCardProps = {
-  game: Game;
-  onAddToCart?: () => void
-  onBuy?: () => void
+  game: GameResponseDTO;
+  onCart: () => void
+  onBuy: () => void
+  gamePage: string
+  isAlreadyInCart: boolean
+  isOwned: boolean
   actions?: React.ReactNode
 }

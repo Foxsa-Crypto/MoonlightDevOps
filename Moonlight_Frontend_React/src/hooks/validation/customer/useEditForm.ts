@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../auth/useAuth";
-import { formatCPF } from "../../../utils/Validation/dataRules/cpf";
+import { formatCPF } from "../../../utils/Validation/dataRules/User/userCpf";
 import { validateEditUser } from "../../../utils/Validation/Customer/ValidateEditUser";
 import { getEditFormErrors } from "../../../utils/Validation/formErrors/Customer/getFormErrors";
 import { updateMe } from "../../../services/realServices/user.service";
+
 
 export function useEditForm(initialData: {name: string, cpf: string}){
     const navigate = useNavigate();

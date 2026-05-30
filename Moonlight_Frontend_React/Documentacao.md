@@ -144,3 +144,10 @@ body {
 * npx vitest
 * npx vitest --watch
 * npx vitest --coverage
+
+# formas lendarias de adquirir imagens via url de API
+
+https://cdn.akamai.steamstatic.com/steam/apps/1245620/library_hero.jpg img de banner
+https://shared.akamai.steamstatic.com//store_item_assets//steam//apps//1245620//hero_capsule.jpg?t=1767883716 imagem de card de produto
+
+https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/292030/header.jpg imagem de categoria

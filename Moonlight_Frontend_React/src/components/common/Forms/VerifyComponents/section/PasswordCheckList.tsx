@@ -1,5 +1,5 @@
 import { CheckIcon, XIcon } from "@phosphor-icons/react";
-import { passwordRules } from "../../../../../utils/Validation/dataRules/password";
+import { passwordRules } from "../../../../../utils/Validation/dataRules/User/userPassword";
 
 type PasswordRulesProps = { password: string; }
 

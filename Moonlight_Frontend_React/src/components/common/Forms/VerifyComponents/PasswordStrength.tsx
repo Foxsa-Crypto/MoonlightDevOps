@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPasswordVerifiedLevel} from "../../../../utils/Validation/dataRules/password";
+import { getPasswordVerifiedLevel} from "../../../../utils/Validation/dataRules/User/userPassword";
 import { getAnimationState } from "../../../../utils/ui/animation/animationState";
 import { StrengthBar } from "./section/StrengthBar";
 import { PasswordCheckList } from "./section/PasswordCheckList";

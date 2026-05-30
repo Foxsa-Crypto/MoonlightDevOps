@@ -1,10 +1,10 @@
 import { createContext, useContext } from "react";
-import type { AuthUser } from "../../@types";
+import type { AuthUserResponseDTO } from "../../@types/auth/auth.dto";
 
 export type AuthContextType = {
-    user: AuthUser | null;
+    user: AuthUserResponseDTO | null;
     token: string | null;
-    login: (token: string, user: AuthUser) => void;
+    login: (token: string, user: AuthUserResponseDTO) => void;
     logout: () => void;
     isAuthenticated: boolean;
     loading: boolean;

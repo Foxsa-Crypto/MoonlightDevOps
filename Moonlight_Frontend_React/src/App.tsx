@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, useNavigate } from 'react-router-dom';
 import { AppRoutesAdmin } from "./routes/AppRoutesAdmin.tsx";
 import { AppRoutesCustomer } from "./routes/AppRoutesCustomer.tsx";
 import { setNavigate } from "./utils/navigate/navigate.ts";
+import { CartProvider } from "./contexts/CartContext.tsx";
+import { LibraryProvider } from "./contexts/LibraryContext.tsx";
 
 function AppRoutes() {
   const navigate = useNavigate();
@@ -22,7 +24,11 @@ function AppRoutes() {
 function App() {
   return (
     <BrowserRouter>
-      <AppRoutes />
+      <LibraryProvider>
+        <CartProvider>
+            <AppRoutes />
+        </CartProvider>
+      </LibraryProvider>
     </BrowserRouter>
   );
 }

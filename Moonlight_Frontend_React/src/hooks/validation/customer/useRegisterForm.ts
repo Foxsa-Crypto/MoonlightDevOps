@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { validateRegister } from "../../../utils/Validation/Customer/ValidateRegister";
 import { getRegisterFormErrors } from "../../../utils/Validation/formErrors/Customer/getFormErrors";
-import { formatCPF } from "../../../utils/Validation/dataRules/cpf";
+import { formatCPF } from "../../../utils/Validation/dataRules/User/userCpf";
 import { register } from "../../../services/realServices/auth.service";
 
 export function useRegisterForm() {

@@ -27,10 +27,6 @@ export function Carrousel({children, cardsPerView = 3} : CarrouselProps) {
 
   return (
     <div className="relative">
-         {/* fade esquerda */}
-        <div className="pointer-events-none absolute left-0 top-0 h-full w-12 bg-linear-to-r from-black to-transparent z-10" />
-        {/* fade direita */}
-        <div className="pointer-events-none absolute right-0 top-0 h-full w-12 bg-linear-to-l from-black to-transparent z-10" />
 
         {/* botão esquerda */}
         <Button

@@ -1,0 +1,10 @@
+README.md
+Documentacao.md
+node_modules/
+dist/
+.env
+.example.env
+.git/
+.gitignore
+src/__test__/
+vitest.config.ts

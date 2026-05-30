@@ -6,6 +6,27 @@ export const tableStyles = {
   table: {
     style: { backgroundColor: 'transparent' },
   },
+  expanderRow: {
+    style: {
+      backgroundColor: 'transparent', // Ou '#ffffff05' para um leve destaque
+      color: '#2b7fff',
+    },
+  },
+  expanderCell: {
+    style: {
+      flex: 'none', // Ajuda a alinhar o ícone de expandir
+    },
+  },
+  expanderButton: {
+    style: {
+      color: 'white',
+      fill: 'white',
+      backgroundColor: 'transparent',
+      '&:hover': {
+        backgroundColor: '#ffffff10',
+      },
+    },
+  },
   header: {
 	style: {
 		fontSize: '22px',

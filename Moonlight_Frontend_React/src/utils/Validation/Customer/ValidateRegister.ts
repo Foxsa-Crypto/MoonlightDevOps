@@ -1,8 +1,7 @@
-import { isPasswordConfirmed } from "../dataRules/confirmPass";
-import { isCPFValid } from "../dataRules/cpf";
-import { isEmailValid } from "../dataRules/email";
-import { isNameValid } from "../dataRules/name";
-import { getPasswordVerifiedLevel } from "../dataRules/password";
+import { isCPFValid } from "../dataRules/User/userCpf";
+import { isEmailValid } from "../dataRules/User/userEmail";
+import { isNameValid } from "../dataRules/User/userName";
+import { getPasswordVerifiedLevel } from "../dataRules/User/userPassword";
 
 export function validateRegister(data: {
     name: string,
@@ -17,7 +16,7 @@ export function validateRegister(data: {
     const nameValid = isNameValid(name);
     const emailValid = isEmailValid(email);
     const strengthLevel = getPasswordVerifiedLevel(password);
-    const passwordMatch = isPasswordConfirmed(password, confirmPassword);
+    const passwordMatch = password === confirmPassword;
     const cpfValid = isCPFValid(cpf);
 
     const isFormFilled = !!(

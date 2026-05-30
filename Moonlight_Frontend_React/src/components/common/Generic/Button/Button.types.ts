@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
  
-type ButtonStyle = "primary" | "secondary" | "cta" | "transparent";
+type ButtonStyle = "primary" | "secondary" | "cta" | "transparent" | "danger";
  
 type SharedProps = {
   children?: ReactNode;

@@ -1,10 +1,13 @@
-import type { ApiMessage, CreateUserPayload, PaginatedResponse, UpdateMeResponse } from "../../@types";
-import type { User } from "../../@types/User";
-import { isCPFValid } from "../../utils/Validation/dataRules/cpf";
-import { isEmailValid } from "../../utils/Validation/dataRules/email";
+
+import type { ApiResponse } from "../../@types/common/apiResponse";
+import type { PaginatedResponse } from "../../@types/common/pagination";
+import type { UpdateMeResponseDTO, UserResponseDTO } from "../../@types/user/user.dto";
+import type { UpdateMePayload, UserPayload } from "../../@types/user/user.payload";
+import { isCPFValid } from "../../utils/Validation/dataRules/User/userCpf";
+import { isEmailValid } from "../../utils/Validation/dataRules/User/userEmail";
 import { mockUserItems } from "./mockItems/mockUserItems";
 
-export async function fetchUsersMock(page: number, limit: number): Promise<PaginatedResponse<User>>{
+export async function fetchUsersMock(page: number, limit: number): Promise<PaginatedResponse<UserResponseDTO>>{
     await new Promise(resolve => setTimeout(resolve, 500));
     const offset = (page - 1) * limit;
     const paginated = mockUserItems.slice(offset, offset + limit); // fatia o array igual o OFFSET do SQL
@@ -17,7 +20,7 @@ export async function fetchUsersMock(page: number, limit: number): Promise<Pagin
     };
 }
 
-export async function fetchUserByIdMock(id_user: number): Promise<User> {
+export async function fetchUserByIdMock(id_user: number): Promise<UserResponseDTO> {
   await new Promise(resolve => setTimeout(resolve, 500));
 
     const user = mockUserItems.find(user => user.id_user === id_user);
@@ -29,7 +32,7 @@ export async function fetchUserByIdMock(id_user: number): Promise<User> {
     return user;
 }
 
-export async function createUserMock(data: CreateUserPayload): Promise<ApiMessage>{
+export async function createUserMock(data: UserPayload): Promise<ApiResponse>{
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     console.log('[MOCK] createUser:', data);
@@ -64,7 +67,7 @@ export async function createUserMock(data: CreateUserPayload): Promise<ApiMessag
     return { message: "Usuário cadastrado com sucesso." };
 }
 
-export async function updateMeMock(data: {name: string; cpf: string; password: string; }): Promise<UpdateMeResponse>{
+export async function updateMeMock(data: UpdateMePayload): Promise<UpdateMeResponseDTO>{
 
     console.log('[MOCK] updateMe:', data);
 

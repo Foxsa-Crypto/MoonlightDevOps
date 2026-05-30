@@ -9,10 +9,11 @@ export function HeaderProfileDropdown(){
     const [confirmLogout, setConfirmLogout] = useState(false);
     const {logout, user} = useAuth();
 
-    
+
 
     return(
         <Dropdown alignment={"middle"}
+            backgroundActive="on"
             trigger={(open) => (
                 <Button variant="cta" as="button" className="max-lg:active:bg-blue-600 max-lg:active:scale-95 lg:rounded-md lg:p-2 lg:w-fit flex w-full transition-all duration-300 lg:hover:bg-blue-600 justify-center items-center">
                     <WarmWelcomeTime/>
@@ -20,16 +21,16 @@ export function HeaderProfileDropdown(){
                 </Button>
             )}
         >
-            {!confirmLogout 
+            {!confirmLogout
                 ?(
                     <div>
                         <Button as="link" variant="primary" href="/profile" className={`rounded-t-md max-lg:active:bg-white max-lg:active:text-night lg:hover:bg-white lg:hover:text-night transition-all duration-300 w-full block px-4 py-2 text-sm`}>Perfil</Button>
                         <Button as="link" variant="primary" href="/library" className={`max-lg:active:bg-white max-lg:active:text-night lg:hover:bg-white lg:hover:text-night transition-all duration-300 w-full block px-4 py-2 text-sm`}>Biblioteca</Button>
                         <Button as="link" variant="primary" href="/orders" className={`max-lg:active:bg-white max-lg:active:text-night lg:hover:bg-white lg:hover:text-night transition-all duration-300 w-full block px-4 py-2 text-sm`}>Pedidos</Button>
-                        {user?.type === "admin" && 
-                            <Button as="link" variant="primary" href="/admin" className={`max-lg:active:bg-white max-lg:active:text-night lg:hover:bg-white lg:hover:text-night transition-all duration-300 w-full block px-4 py-2 text-sm`}>Administrativo</Button>
+                        {user?.type === "admin" &&
+                            <Button as="link" variant="primary" href="/" className={`max-lg:active:bg-white max-lg:active:text-night lg:hover:bg-white lg:hover:text-night transition-all duration-300 w-full block px-4 py-2 text-sm`}>Loja</Button>
                         }
-                        <Button as="button" onClick={() => setConfirmLogout(true)} variant="primary" className={`rounded-b-md max-lg:active:bg-white max-lg:active:text-night lg:hover:bg-white lg:hover:text-night transition-all duration-300 w-full block px-4 py-2 text-sm`}> 
+                        <Button as="button" onClick={() => setConfirmLogout(true)} variant="primary" className={`rounded-b-md max-lg:active:bg-white max-lg:active:text-night lg:hover:bg-white lg:hover:text-night transition-all duration-300 w-full block px-4 py-2 text-sm`}>
                             Sair
                         </Button>
                     </div>
@@ -44,7 +45,7 @@ export function HeaderProfileDropdown(){
                     </div>
                 )
             }
-            
+
         </Dropdown>
     )
 }

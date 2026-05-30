@@ -1,4 +1,4 @@
-import { isEmailValid } from "../dataRules/email";
+import { isEmailValid } from "../dataRules/User/userEmail";
 
 export function validateLogin(data: {
     email: string,

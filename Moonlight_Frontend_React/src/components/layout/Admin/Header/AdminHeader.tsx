@@ -80,7 +80,7 @@ export function AdminHeader(){
                           as="link" 
                           href="/" 
                           variant="transparent">
-                            Loja Principal
+                            Loja
                         </Button>
                     </div>
                     <div className="flex w-full flex-col justify-center text-center items-center lg:flex-row lg:static lg:w-1/2 lg:gap-6.25 ">

@@ -6,8 +6,8 @@ import { useEditForm } from "../../../../../hooks/validation/customer/useEditFor
 import { InputFieldForm } from "../../../../../components/common/Forms/InputFieldForm";
 import { PasswordStrength } from "../../../../../components/common/Forms/VerifyComponents/PasswordStrength";
 import { FieldVerify } from "../../../../../components/common/Forms/VerifyComponents/FieldVerify";
-import { isNameValid } from "../../../../../utils/Validation/dataRules/name";
-import { isCPFValid } from "../../../../../utils/Validation/dataRules/cpf";
+import { isNameValid } from "../../../../../utils/Validation/dataRules/User/userName";
+import { isCPFValid } from "../../../../../utils/Validation/dataRules/User/userCpf";
 
 
 export function EditForm(){

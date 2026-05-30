@@ -5,10 +5,10 @@ import { LoadingDots } from "../../../../../components/common/Forms/LoadingDots"
 import { useRegisterForm } from "../../../../../hooks/validation/customer/useRegisterForm";
 import { InputFieldForm } from "../../../../../components/common/Forms/InputFieldForm";
 import { PasswordStrength } from "../../../../../components/common/Forms/VerifyComponents/PasswordStrength";
-import { isNameValid } from "../../../../../utils/Validation/dataRules/name";
+import { isNameValid } from "../../../../../utils/Validation/dataRules/User/userName";
 import { FieldVerify } from "../../../../../components/common/Forms/VerifyComponents/FieldVerify";
-import { isCPFValid } from "../../../../../utils/Validation/dataRules/cpf";
-import { isEmailValid } from "../../../../../utils/Validation/dataRules/email";
+import { isCPFValid } from "../../../../../utils/Validation/dataRules/User/userCpf";
+import { isEmailValid } from "../../../../../utils/Validation/dataRules/User/userEmail";
 
 export function RegisterForm() {
     const {
