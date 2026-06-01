@@ -31,6 +31,5 @@ export async function loginUser(data: {
     }
     
     const response = await api.post("/api/auth/login", cleanData);
-    console.log(response.data);
     return response.data;
 }

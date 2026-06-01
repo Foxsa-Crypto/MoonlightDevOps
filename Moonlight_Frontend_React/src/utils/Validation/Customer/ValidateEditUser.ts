@@ -1,7 +1,6 @@
-import { isPasswordConfirmed } from "../dataRules/confirmPass";
-import { isCPFValid } from "../dataRules/cpf";
-import { isNameValid } from "../dataRules/name";
-import { getPasswordVerifiedLevel } from "../dataRules/password";
+import { isCPFValid } from "../dataRules/User/userCpf";
+import { isNameValid } from "../dataRules/User/userName";
+import { getPasswordVerifiedLevel } from "../dataRules/User/userPassword";
 
 export function validateEditUser(data: {
     name: string,
@@ -14,7 +13,7 @@ export function validateEditUser(data: {
 
     const nameValid = isNameValid(name);
     const strengthLevel = getPasswordVerifiedLevel(password);
-    const passwordMatch = isPasswordConfirmed(password, confirmPassword);
+    const passwordMatch = password === confirmPassword
     const cpfValid = isCPFValid(cpf);
 
     const isFormFilled = !!(

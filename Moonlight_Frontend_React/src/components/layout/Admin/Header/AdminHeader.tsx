@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useBreakpoint } from "../../../../hooks/breakpoints/useBreakpoint";
 import { getAnimationState } from "../../../../utils/ui/animation/animationState";
 import { HeaderProfileDropdown } from "./components/HeaderProfileDropdown";
+import moonlightMenor from "@/assets/MoonlightMenor.png";
 
 export function AdminHeader(){
     const [hamburguerIsOpen, setHamburguerIsOpen] = useState(false); //como está false, ao fazer !hamburguerisOpen é true.
@@ -18,10 +19,10 @@ export function AdminHeader(){
         <header className="fixed top-0 left-0 relative bg-night w-full flex z-11">
 
                 <Button className="justify-items-center w-1/2 pl-5 lg:pl-0 lg:w-1/3" as="link" href="/admin" variant="transparent">
-                    <img src="/src/assets/MoonlightMenor.png" className="h-auto w-auto" alt="Moonlight Logo" />
+                    <img src={moonlightMenor} className="h-auto w-auto" alt="Moonlight Logo" />
                 </Button>
 
-                <Button 
+                <Button
                     className="w-1/2 justify-items-end pr-5 lg:hidden"
                     onClick={() => setHamburguerIsOpen(!hamburguerIsOpen)}
                 >
@@ -42,52 +43,52 @@ export function AdminHeader(){
                             `}
                         />
                     </div>
-                </Button> 
+                </Button>
 
                 <nav className={`${hamburguerIsOpen && isTablet || hamburguerIsOpen && isMobile ? "block" : "hidden"} bg-night absolute top-full left-0 w-full
            flex-col items-center lg:flex lg:w-2/3 lg:bg-transparent lg:static lg:flex-row`}>
                     <div className="flex w-full justify-center flex-col text-center lg:flex-row lg:static lg:w-1/2 lg:gap-6.25">
-                        <Button 
-                          className="max-lg:active:bg-white max-lg:active:text-night max-lg:active:scale-95 duration-300 transition-all hover:bg-transparent fx-underline" 
-                          as="link" 
-                          href="/admin" 
+                        <Button
+                          className="max-lg:active:bg-white max-lg:active:text-night max-lg:active:scale-95 duration-300 transition-all hover:bg-transparent fx-underline"
+                          as="link"
+                          href="/admin"
                           variant="transparent">
                             Home
                         </Button>
-                        <Button 
-                          className="max-lg:active:bg-white max-lg:active:text-night max-lg:active:scale-95 duration-300 transition-all hover:bg-transparent fx-underline" 
-                          as="link" 
-                          href="/admin/users" 
+                        <Button
+                          className="max-lg:active:bg-white max-lg:active:text-night max-lg:active:scale-95 duration-300 transition-all hover:bg-transparent fx-underline"
+                          as="link"
+                          href="/admin/users"
                           variant="transparent">
                             Usuarios
                         </Button>
-                        <Button 
-                          className="max-lg:active:bg-white max-lg:active:text-night max-lg:active:scale-95 duration-300 transition-all hover:bg-transparent fx-underline" 
-                          as="link" 
-                          href="/admin/games" 
+                        <Button
+                          className="max-lg:active:bg-white max-lg:active:text-night max-lg:active:scale-95 duration-300 transition-all hover:bg-transparent fx-underline"
+                          as="link"
+                          href="/admin/games"
                           variant="transparent">
                             Jogos
                         </Button>
-                        <Button 
-                          className="max-lg:active:bg-white max-lg:active:text-night max-lg:active:scale-95 duration-300 transition-all hover:bg-transparent fx-underline" 
-                          as="link" 
-                          href="/admin/categories" 
+                        <Button
+                          className="max-lg:active:bg-white max-lg:active:text-night max-lg:active:scale-95 duration-300 transition-all hover:bg-transparent fx-underline"
+                          as="link"
+                          href="/admin/categories"
                           variant="transparent">
                             Categorias
                         </Button>
-                        <Button 
-                          className="max-lg:active:bg-white max-lg:active:text-night max-lg:active:scale-95 duration-300 transition-all hover:bg-transparent fx-underline" 
-                          as="link" 
-                          href="/" 
+                        <Button
+                          className="max-lg:active:bg-white max-lg:active:text-night max-lg:active:scale-95 duration-300 transition-all hover:bg-transparent fx-underline"
+                          as="link"
+                          href="/"
                           variant="transparent">
-                            Loja Principal
+                            Loja
                         </Button>
                     </div>
                     <div className="flex w-full flex-col justify-center text-center items-center lg:flex-row lg:static lg:w-1/2 lg:gap-6.25 ">
                         <HeaderProfileDropdown/>
                     </div>
-                </nav>                
+                </nav>
 
-        </header>    
+        </header>
     )
 }

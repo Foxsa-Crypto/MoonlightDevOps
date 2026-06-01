@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/useAuth";
 import { validateLogin } from "../../../utils/Validation/Customer/ValidateLogin";
 import { getLoginFormErrors } from "../../../utils/Validation/formErrors/Customer/getFormErrors";
 import { loginUser } from "../../../services/realServices/auth.service";
+import { LibraryContext } from "../../library/useLibrary";
 
 export function useLoginForm() {
+    const {refreshLibrary} = useContext(LibraryContext);
     const navigate = useNavigate();
     const {login} = useAuth();
 
@@ -50,6 +52,7 @@ export function useLoginForm() {
             setUi(prev => ({ ...prev, loading: true }));
             const data = await loginUser(fields);
             login(data.token, data.user);
+            refreshLibrary();
             setUi(prev => ({ ...prev, success: true }));
             setTimeout(() => navigate("/"), 1500);
         } catch (err) {

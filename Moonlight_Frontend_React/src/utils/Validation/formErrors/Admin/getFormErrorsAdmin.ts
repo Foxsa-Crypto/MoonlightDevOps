@@ -1,10 +1,14 @@
-import { isPasswordConfirmed } from "../../dataRules/confirmPass";
-import { isCPFValid } from "../../dataRules/cpf";
-import { isEmailValid } from "../../dataRules/email";
-import { isNameValid } from "../../dataRules/name";
-import { getPasswordVerifiedLevel } from "../../dataRules/password";
-import { isUserTypeValid } from "../../dataRules/userType";
-import type { UserFormData, UserTouched } from "./formErrorsTypesAdmin";
+import { isCPFValid } from "../../dataRules/User/userCpf";
+import { isEmailValid } from "../../dataRules/User/userEmail";
+import { isLaunchDateValid } from "../../dataRules/Game/gameLaunchDate";
+import { isPriceValid } from "../../dataRules/Game/gamePrice";
+import { isTitleValid } from "../../dataRules/Game/gameTitle";
+import { isNameValid } from "../../dataRules/User/userName";
+import { getPasswordVerifiedLevel } from "../../dataRules/User/userPassword";
+import { isUserTypeValid } from "../../dataRules/User/userType";
+import type { CategoryFormData, CategoryTouched, GameFormData, GameTouched, UserFormData, UserTouched } from "./formErrorsTypesAdmin";
+import { isDescriptionValid } from "../../dataRules/Category/categoryDescription";
+import { isCategoryNameValid } from "../../dataRules/Category/categoryName";
 
 export function getUserFormErrors(data: UserFormData, touched: UserTouched, submitted: boolean){
      /* validações para mostrar erro */
@@ -12,7 +16,7 @@ export function getUserFormErrors(data: UserFormData, touched: UserTouched, subm
     const cpfValid = isCPFValid(data.cpf);
     const emailValid = isEmailValid(data.email);
     const strengthLevel = getPasswordVerifiedLevel(data.password);
-    const passwordMatch = isPasswordConfirmed(data.password, data.confirmPassword);
+    const passwordMatch = data.password === data.confirmPassword;
     const typeValid = isUserTypeValid(data.type);
     
     return {
@@ -25,4 +29,31 @@ export function getUserFormErrors(data: UserFormData, touched: UserTouched, subm
     }
 }
 
+export function getGameFormErrors(data: GameFormData, touched: GameTouched, submitted: boolean){
+     /* validações para mostrar erro */
+     
+    const titleValid = isTitleValid(data.title);
+    const priceValid = isPriceValid(data.price); //(preço tem que ser um numero e ser maior ou igual a 0)
+    const launchDateValid = isLaunchDateValid(data.launch_date); //(a data de lançamento tem de ser maior que 0, ou seja, tem de estar marcada.)
+    const activeValid = !data.active //(active tem de estar marcado.)
+    
+    return {
+        showErrorTitle: (touched.title || submitted) && !titleValid,
+        showErrorPrice: (touched.price || submitted) && !priceValid,
+        showErrorLaunchDate: (touched.launch_date || submitted) && !launchDateValid,
+        showErrorActive: (touched.active || submitted) && !activeValid
+    }
+}
+
+export function getCategoryFormErrors(data: CategoryFormData, touched: CategoryTouched, submitted: boolean){
+     /* validações para mostrar erro */
+     
+    const nameValid = isCategoryNameValid(data.name);
+    const descriptionValid = isDescriptionValid(data.description); //(preço tem que ser um numero e ser maior ou igual a 0)
+    
+    return {
+        showErrorName: (touched.name || submitted) && !nameValid,
+        showErrorDescription: (touched.description || submitted) && !descriptionValid,
+    }
+}
 

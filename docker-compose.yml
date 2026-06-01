@@ -1,28 +1,74 @@
 services:
   database:
-    image: mysql:lts
+    image: mysql:8
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 
-      MYSQL_DATABASE: moonlight
-      MYSQL_USER: root
-      MYSQL_PASSWORD: moonshinelightsky
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - internal
 
   backend:
     build:
-      context: ./backend
+      context: ./Moonlight_Backend
       dockerfile: Dockerfile
     container_name: backend_service
+    restart: unless-stopped
+    environment:
+      DB_HOST: database
+      DB_USER: ${DB_USER}
+      DB_DATABASE_NAME: ${DB_DATABASE_NAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      NGROK_URL: ${NGROK_URL}
+      MERCADOPAGO_ACCESS_TOKEN: ${MERCADOPAGO_ACCESS_TOKEN}
+      JWT_SECRET: ${JWT_SECRET}
     expose:
       - "3000"
     depends_on:
       - database
+    networks:
+      - internal
+
+  frontend:
+    build:
+      context: ./Moonlight_Frontend_React
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+        VITE_USE_MOCK: ${VITE_USE_MOCK}
+        VITE_MP_PUBLIC_KEY: ${VITE_MP_PUBLIC_KEY}
+    container_name: frontend_service
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - internal
+
+  nginx:
+    image: nginx:1.31.1-alpine3.23
+    restart: unless-stopped
+    container_name: nginx_service
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - internal
 
 networks:
-  app-network:
+  internal:
+    driver: bridge
 
-
-
-
+volumes:
+  db-data:

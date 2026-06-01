@@ -1,0 +1,5 @@
+.env
+.env.local
+nginx/certs/
+node_modules/
+*.log

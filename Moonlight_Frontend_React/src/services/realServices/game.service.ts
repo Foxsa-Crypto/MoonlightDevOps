@@ -1,19 +1,29 @@
-import type { CreateGamePayload, CreateGameResponse,  DeleteGameResponse, GameWithCategories, PaginatedResponse, UpdateGamePayload, UpdateGameResponse } from "../../@types";
-import type { Game } from "../../@types/Game";
+
+import type { PaginatedResponse } from "../../@types/common/pagination";
+import type { GameResponseDTO } from "../../@types/game/game.dto";
+import type { GamePaginatedQueryPayload, GamePayload } from "../../@types/game/game.payload";
 import { sanitizeData } from "../../utils/sanitizer/sanitizer";
 import { api } from "../api";
-import { fetchGameByIdMock, fetchGamesMock } from "../fakeServices/game.fakeservice";
+import { fetchGameByIdMock, fetchGamesPaginatedMock } from "../fakeServices/game.fakeservice";
 
 
-export async function fetchGames(page = 1, limit = 10): Promise<PaginatedResponse<GameWithCategories>> {
+export async function fetchGamesPaginated(query: GamePaginatedQueryPayload): Promise<PaginatedResponse<GameResponseDTO>> {
     if (import.meta.env.VITE_USE_MOCK === "true") {
-        return fetchGamesMock(page, limit);
+        return fetchGamesPaginatedMock(query.page, query.limit);
     }
-    const response = await api.get(`/api/games`, { params: { page, limit } });
+    const response = await api.get(`/api/games/pag`, { params: query });
     return response.data;
 }
 
-export async function fetchGameById(id_game: number): Promise<GameWithCategories> {
+export async function fetchGamesPaginatedAdmin(query: GamePaginatedQueryPayload): Promise<PaginatedResponse<GameResponseDTO>> {
+    if (import.meta.env.VITE_USE_MOCK === "true") {
+        return fetchGamesPaginatedMock(query.page, query.limit);
+    }
+    const response = await api.get(`/api/games/pagadmin`, { params: query });
+    return response.data;
+}
+
+export async function fetchGameById(id_game: number): Promise<GameResponseDTO> {
     if (import.meta.env.VITE_USE_MOCK === "true") {
         return fetchGameByIdMock(id_game);
     }
@@ -21,7 +31,7 @@ export async function fetchGameById(id_game: number): Promise<GameWithCategories
     return response.data;
 }
 
-export async function fetchGamesByTitle(title: string): Promise<Game[] | Game> {
+export async function fetchGamesByTitle(title: string): Promise<GameResponseDTO[] | GameResponseDTO> {
     const response = await api.get(`/api/games`, {
         params: { title }
     });
@@ -29,20 +39,20 @@ export async function fetchGamesByTitle(title: string): Promise<Game[] | Game> {
     return response.data;
 }
 
-export async function createGame(data: CreateGamePayload): Promise<CreateGameResponse>{
+export async function createGame(data: GamePayload): Promise<Response>{
     const cleanData = sanitizeData(data);
     const response = await api.post(`/api/games`, cleanData);
     return response.data;
 }
 
 
-export async function updateGame(id_game: number, data: UpdateGamePayload): Promise<UpdateGameResponse> {
+export async function updateGame(id_game: number, data: GamePayload): Promise<Response> {
     const cleanData = sanitizeData(data);
     const response = await api.put(`/api/games/${id_game}`, cleanData);
     return response.data;
 }
 
-export async function deleteGame(id_game: number): Promise<DeleteGameResponse> {
+export async function deleteGame(id_game: number): Promise<Response> {
     const response = await api.delete(`/api/games/${id_game}`);
     return response.data;
 }

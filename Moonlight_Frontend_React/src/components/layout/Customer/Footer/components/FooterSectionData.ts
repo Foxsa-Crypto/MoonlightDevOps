@@ -1,6 +1,6 @@
 export const siteMapItems = [
     { label: "Home", href: "/" },
-    { label: "Ofertas", href: "/offers" },
+    { label: "Explorar", href: "/explore" },
     { label: "Novidades", href: "/news" },
     { label: "Sobre Nós", href: "/about" },
     { label: "Nosso Contato", href: "/contact"}

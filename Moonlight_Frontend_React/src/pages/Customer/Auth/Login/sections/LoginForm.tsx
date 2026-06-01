@@ -4,7 +4,7 @@ import { LoadingDots } from "../../../../../components/common/Forms/LoadingDots"
 import { useLoginForm } from "../../../../../hooks/validation/customer/useLoginForm";
 import { InputFieldForm } from "../../../../../components/common/Forms/InputFieldForm";
 import { FieldVerify } from "../../../../../components/common/Forms/VerifyComponents/FieldVerify";
-import { isEmailValid } from "../../../../../utils/Validation/dataRules/email";
+import { isEmailValid } from "../../../../../utils/Validation/dataRules/User/userEmail";
  
 export function LoginForm() {
 
@@ -55,7 +55,7 @@ export function LoginForm() {
                 variant="primary" 
                 className="w-full py-3.5 rounded-md text-sm tracking-widest uppercase font-medium flex items-center justify-center gap-2 mt-2"
             >
-                {ui.loading ? <LoadingDots /> : <>Criar Conta <ArrowRightIcon size={16} weight="bold" /></>}
+                {ui.loading ? <LoadingDots /> : <>Fazer Login <ArrowRightIcon size={16} weight="bold" /></>}
             </Button>
  
             <p className="text-center text-xs text-white/30">

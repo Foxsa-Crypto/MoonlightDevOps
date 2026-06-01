@@ -1,5 +1,5 @@
-import { isCPFValid } from "../../utils/Validation/dataRules/cpf";
-import { isEmailValid } from "../../utils/Validation/dataRules/email";
+import { isCPFValid } from "../../utils/Validation/dataRules/User/userCpf";
+import { isEmailValid } from "../../utils/Validation/dataRules/User/userEmail";
 
 export async function registerMock(data: {
   name: string;

@@ -1,9 +1,12 @@
-import type { Category } from "../../@types/Category";
+import type { CategoryResponseDTO } from "../../@types/category/category.dto";
+import type { CategoryPaginatedQueryPayload, CategoryPayload } from "../../@types/category/category.payload";
+import type { ApiResponse } from "../../@types/common/apiResponse";
+import type { PaginatedResponse } from "../../@types/common/pagination";
 import { sanitizeData } from "../../utils/sanitizer/sanitizer";
 import { api } from "../api";
-import { fetchCategoryByIdMock, fetchCategoryMock } from "../fakeServices/category.fakeservice";
+import { fetchCategoryByIdMock, fetchCategoryMock, fetchPaginatedCategoryMock } from "../fakeServices/category.fakeservice";
 
-export async function fetchCategories(): Promise<Category[]> {
+export async function fetchCategories(): Promise<CategoryResponseDTO[]> {
     if (import.meta.env.VITE_USE_MOCK === "true") {
         return fetchCategoryMock();
     }
@@ -12,7 +15,17 @@ export async function fetchCategories(): Promise<Category[]> {
     return response.data;
 }
 
-export async function fetchCategoryById(id_category: number): Promise<Category | Error> {
+export async function fetchPaginatedCategories(query: CategoryPaginatedQueryPayload): Promise<PaginatedResponse<CategoryResponseDTO>> {
+    if (import.meta.env.VITE_USE_MOCK === "true") {
+        return fetchPaginatedCategoryMock(query.page, query.limit);
+    }
+
+    const response = await api.get(`/api/categories/pag`, { params: query });
+    return response.data;
+}
+
+
+export async function fetchCategoryById(id_category: number): Promise<CategoryResponseDTO> {
     if (import.meta.env.VITE_USE_MOCK === "true") {
         return fetchCategoryByIdMock(id_category);
     }
@@ -21,27 +34,19 @@ export async function fetchCategoryById(id_category: number): Promise<Category |
     return response.data;
 }
 
-export async function fetchCategoriesByName(name: string): Promise<Category | Error> {
-    const response = await api.get(`/api/categories`, {
-        params: { name }
-    });
-
-    return response.data;
-}
-
-export async function createCategory(data: {name: string, description: string, image: string}) {
+export async function createCategory(data: CategoryPayload): Promise<ApiResponse> {
     const cleanData = sanitizeData(data);
     const response = await api.post(`/api/categories`, cleanData);
     return response.data;
 }
 
-export async function updateCategory(id_category: number, data: {name: string, description: string, image: string}) {
+export async function updateCategory(id_category: number, data: CategoryPayload): Promise<ApiResponse> {
     const cleanData = sanitizeData(data);
     const response = await api.put(`/api/categories/${id_category}`, cleanData);
     return response.data;
 }
 
-export async function deleteCategory(id_category: number) {
+export async function deleteCategory(id_category: number): Promise<ApiResponse> {
     const response = await api.delete(`/api/categories/${id_category}`);
     return response.data;
 }

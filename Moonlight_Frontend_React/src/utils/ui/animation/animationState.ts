@@ -3,6 +3,7 @@ export type AnimationState = {
     styles: {
         rotate: string;
         rotate180: string;
+        slideInsideScreen: string;
         slideUp: string;
         slideDown: string;
         fadeInOpacity: string;
@@ -15,15 +16,16 @@ export type AnimationState = {
 }
 
 /**
- * STYLES:  ESTADO FINAL | ESTADO INICIAL 
- * @param isActive 
- * @returns 
+ * STYLES:  ESTADO FINAL | ESTADO INICIAL
+ * @param isActive
+ * @returns
  */
 export function getAnimationState(isActive: boolean): AnimationState{
     return{
         styles: {
             rotate: isActive ? "rotate-45" : "rotate-0",
             rotate180: isActive ? "rotate-180" : "rotate-0",
+            slideInsideScreen: isActive ? "translate-x-0" : "-translate-x-full",
             slideUp: isActive ? "-translate-y-4" : "translate-y-0",
             slideDown: isActive ? "translate-y-0" : "-translate-y-4",
             fadeInOpacity: isActive ? "opacity-100" : "opacity-0",

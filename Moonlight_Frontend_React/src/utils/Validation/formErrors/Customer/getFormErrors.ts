@@ -1,8 +1,7 @@
-import { isPasswordConfirmed } from "../../dataRules/confirmPass";
-import { isCPFValid } from "../../dataRules/cpf";
-import { isEmailValid } from "../../dataRules/email";
-import { isNameValid } from "../../dataRules/name";
-import { getPasswordVerifiedLevel } from "../../dataRules/password";
+import { isCPFValid } from "../../dataRules/User/userCpf";
+import { isEmailValid } from "../../dataRules/User/userEmail";
+import { isNameValid } from "../../dataRules/User/userName";
+import { getPasswordVerifiedLevel } from "../../dataRules/User/userPassword";
 import type { EditFormData, EditTouched, LoginFormData, LoginTouched, RegisterFormData, RegisterTouched } from "./formErrorsTypes";
 
 
@@ -12,7 +11,7 @@ export function getRegisterFormErrors(data: RegisterFormData, touched: RegisterT
     const cpfValid = isCPFValid(data.cpf);
     const emailValid = isEmailValid(data.email);
     const strengthLevel = getPasswordVerifiedLevel(data.password);
-    const passwordMatch = isPasswordConfirmed(data.password, data.confirmPassword);
+    const passwordMatch = data.password === data.confirmPassword;
     
     return {
         showErrorUser: (touched.name || submitted) && !nameValid,
@@ -40,7 +39,7 @@ export function getEditFormErrors(data: EditFormData, touched: EditTouched, subm
     const nameValid = isNameValid(data.name);
     const cpfValid = isCPFValid(data.cpf);
     const strengthLevel = getPasswordVerifiedLevel(data.password);
-    const passwordMatch = isPasswordConfirmed(data.password, data.confirmPassword);
+    const passwordMatch = data.password === data.confirmPassword
 
     return {
         showErrorUser: (touched.name || submitted) && !nameValid,
