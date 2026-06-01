@@ -1,2 +1,2 @@
 # MoonlightDevOps
-repositótio feito para versionamento das duas partes do nosso projeto principal
+Repositório feito para versionamento em produção das duas partes do nosso projeto principal
