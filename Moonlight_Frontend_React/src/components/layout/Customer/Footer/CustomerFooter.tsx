@@ -8,6 +8,7 @@ import { Carrousel } from "../../../common/Generic/Carrousel";
 import { useFetchPaginatedCategories } from "../../../../hooks/fetchItems/store/useFetchPaginatedCategories";
 import { useMemo } from "react";
 import type { CategoryPaginatedQueryPayload } from "../../../../@types/category/category.payload";
+import moonlightMaior from "@/assets/Moonlight.png";
 
 export function CustomerFooter(){
     const query: CategoryPaginatedQueryPayload = useMemo(() => ({
@@ -25,7 +26,7 @@ export function CustomerFooter(){
         <footer className="bg-night w-full flex flex-col justify-evenly items-center p-4 pt-12 gap-8">
             <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-6 px-4 lg:px-20">
                 <Button className="w-1/2 flex justify-center" as="link" href="/" variant="transparent">
-                    <img src="/src/assets/Moonlight.png" className="h-auto w-auto" alt="Moonlight Logo" />
+                    <img src={moonlightMaior} className="h-auto w-auto" alt="Moonlight Logo" />
                 </Button>
                 <div className="w-1/2 max-w-225 flex flex-col">
                     <h2 className="text-2xl text-center lg:text-left">Todas as Categorias de Jogos:</h2>

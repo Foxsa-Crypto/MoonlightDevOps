@@ -15,6 +15,7 @@ import { SearchInputCompact } from "./components/SearchInputCompact";
 import { SearchInputHeader } from "./components/SearchInputHeader";
 // import { useFetchCategories } from "../../../../hooks/fetchItems/store/useFetchCategories";
 import { useCart } from "../../../../hooks/cart/useCart";
+import moonlightMenor from "@/assets/MoonlightMenor.png";
 
 export function CustomerHeader() {
   const [hamburguerIsOpen, setHamburguerIsOpen] = useState(false); //como está false, ao fazer !hamburguerisOpen é true.
@@ -35,7 +36,7 @@ export function CustomerHeader() {
         variant="transparent"
       >
         <img
-          src="/src/assets/MoonlightMenor.png"
+          src={moonlightMenor}
           className="h-auto w-auto"
           alt="Moonlight Logo"
         />
