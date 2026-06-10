@@ -1,0 +1,23 @@
+{
+  "name": "moonlightdevops",
+  "version": "1.0.0",
+  "description": "Repositório feito para versionamento em produção das duas partes do nosso projeto principal",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Foxsa-Crypto/MoonlightDevOps.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Foxsa-Crypto/MoonlightDevOps/issues"
+  },
+  "homepage": "https://github.com/Foxsa-Crypto/MoonlightDevOps#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.2"
+  }
+}
