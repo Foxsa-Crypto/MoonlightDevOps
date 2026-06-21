@@ -60,14 +60,20 @@ jobs:
         run: docker compose up -d --build
 
       - name: Aguardar banco e importar schema
+        env:
+          ROOT_PASS: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          DB_NAME: ${{ secrets.MYSQL_DATABASE_NAME }}
         run: |
           echo "Aguardando MySQL..."
-          timeout 60 bash -c 'until docker compose exec -T database mysqladmin ping --silent 2>/dev/null; do sleep 3; done'
+          timeout 90 bash -c \
+            "until docker compose exec -T database mysql -u root -p\${ROOT_PASS} -e 'SELECT 1' > /dev/null 2>&1; \
+            do sleep 3; echo 'Aguardando...'; done"
+          echo "MySQL pronto!"
           echo "Importando schema..."
           docker compose exec -T database mysql \
             -u root \
-            -p${{ secrets.MYSQL_ROOT_PASSWORD }} \
-            ${{ secrets.MYSQL_DATABASE_NAME }} \
+            -p${ROOT_PASS} \
+            ${DB_NAME} \
             < database_arquives/moonlight.sql
 
       - name: Aguardar serviços
