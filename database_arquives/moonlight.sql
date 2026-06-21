@@ -69,6 +69,7 @@ CREATE TABLE `price_audit` (
   `altered_byUser` VARCHAR(50) NOT NULL
 );
 
+DELIMITER //
 
 CREATE TRIGGER trg_audit_game_price
 AFTER UPDATE ON game
@@ -88,10 +89,9 @@ BEGIN
             COALESCE(@usuario_logado, USER())
         );
     END IF;
-END
+END //
 
-
-
+DELIMITER ;
 
 ALTER TABLE `game_category` ADD CONSTRAINT `fk_game_category_game` FOREIGN KEY (`id_game`) REFERENCES `game` (`id_game`) ON DELETE CASCADE;
 
