@@ -17,16 +17,16 @@ export function useCategoryTable(refetch: () => void){
         { name: 'Imagem', cell: (row: CategoryResponseDTO) => (<><img className="h-30" src={`${row.image}`}/></>)},
         {
             name: 'Ações',
-            cell: (row: CategoryResponseDTO) => (
+            cell: (row: CategoryResponseDTO, rowIndex: number) => (
             <>
-                <Button variant="transparent" onClick={() => handleEdit(row)}>{<PencilIcon size={32}/>}</Button>
-                <Button variant="transparent" onClick={() => setConfirmDeleteId(row.id_category!)}>{<TrashIcon size={32}/>}</Button>
+                <Button id={`cat-edit-btn-${rowIndex}`} variant="transparent" onClick={() => handleEdit(row)}>{<PencilIcon size={32}/>}</Button>
+                <Button id={`cat-delete-btn-${rowIndex}`} variant="transparent" onClick={() => setConfirmDeleteId(row.id_category!)}>{<TrashIcon size={32}/>}</Button>
             </>
             ),
         }
     ]
 
-    const handleEdit = (row: CategoryResponseDTO) => { 
+    const handleEdit = (row: CategoryResponseDTO) => {
         navigate(`/admin/categories/edit/${row.id_category}`, { state: {category: row} });
     }
     const handleDelete = async (id_category: number) => {

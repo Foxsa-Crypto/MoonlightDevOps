@@ -12,7 +12,7 @@ export function ConfirmModal({ icon, title, message, onConfirm, onCancel }: Conf
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 animate-fade-in">
       <div className="bg-night-soft border border-white/10 rounded-xl p-8 w-[340px] flex flex-col gap-6">
-        
+
         <div className="flex flex-col gap-2">
           {icon}
           <p className="text-white font-medium">{title}</p>
@@ -20,11 +20,11 @@ export function ConfirmModal({ icon, title, message, onConfirm, onCancel }: Conf
         </div>
 
         <div className="flex gap-2 justify-end">
-          <Button variant="secondary" onClick={onCancel} className="px-4 py-2 rounded-md border border-white/15 text-slate-400 text-sm hover:bg-white/5 hover:text-white transition-all">
+          <Button id="modal-cancel-btn" variant="secondary" onClick={onCancel} className="px-4 py-2 rounded-md border border-white/15 text-slate-400 text-sm hover:bg-white/5 hover:text-white transition-all">
             Cancelar
           </Button>
-          <Button variant="danger" onClick={onConfirm} className="px-4 py-2 rounded-md text-sm font-medium">
-            Apagar
+          <Button id="modal-confirm-btn" variant="danger" onClick={onConfirm} className="px-4 py-2 rounded-md text-sm font-medium">
+            Confirmar
           </Button>
         </div>
 

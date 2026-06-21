@@ -19,16 +19,16 @@ export function useGameTable(refetch: () => void){
         { name: 'Ativo', selector: (row: GameResponseDTO) => (row.active ? "Sim" : "Não") },
         {
             name: 'Ações',
-            cell: (row: GameResponseDTO) => (
+            cell: (row: GameResponseDTO, rowIndex: number) => (
             <>
-                <Button variant="transparent" onClick={() => handleEdit(row)}>{<PencilIcon size={32}/>}</Button>
-                <Button variant="transparent" onClick={() => setConfirmDeleteId(row.id_game!)}>{<TrashIcon size={32}/>}</Button>
+                <Button id={`game-edit-btn-${rowIndex}`} variant="transparent" onClick={() => handleEdit(row)}>{<PencilIcon size={32}/>}</Button>
+                <Button id={`game-delete-btn-${rowIndex}`} variant="transparent" onClick={() => setConfirmDeleteId(row.id_game!)}>{<TrashIcon size={32}/>}</Button>
             </>
             ),
         }
     ]
 
-    const handleEdit = (row: GameResponseDTO) => { 
+    const handleEdit = (row: GameResponseDTO) => {
         navigate(`/admin/games/edit/${row.id_game}`, { state: {game: row} });
     }
     const handleDelete = async (id_game: number) => {
