@@ -47,7 +47,7 @@ export function CategoryForm({mode, category} : CategoryFormProps){
                         maxLength={25}
                         icon={<TagIcon size={18} />}
                     />
-                    <FieldVerify showError={showErrors.showErrorName} passed={isCategoryNameValid(fields.name)} errorMessage="O nome da categoria tem que ter 1 ou até no maximo 25 caracteres"/> 
+                    <FieldVerify showError={showErrors.showErrorName} passed={isCategoryNameValid(fields.name)} errorMessage="O nome da categoria tem que ter 1 ou até no maximo 25 caracteres"/>
                 </div>
             </div>
             <div className="max-lg:flex max-lg:flex-col lg:grid lg:grid-cols-1">
@@ -75,10 +75,11 @@ export function CategoryForm({mode, category} : CategoryFormProps){
             )}
 
             <Button
-                onClick={() => handleSubmit(category?.id_category)}
-                disabled={ui.loading}
-                variant="primary"
-                className="w-full py-3.5 rounded-md text-sm tracking-widest uppercase font-medium flex items-center justify-center gap-2 mt-2"
+              id="category-submit-btn"
+              onClick={() => handleSubmit(category?.id_category)}
+              disabled={ui.loading}
+              variant="primary"
+              className="w-full py-3.5 rounded-md text-sm tracking-widest uppercase font-medium flex items-center justify-center gap-2 mt-2"
             >
                 {ui.loading ? <LoadingDots /> : <>{mode === "create" ? "Cadastrar Categoria" : "Salvar Alterações"} <ArrowRightIcon size={16} weight="bold" /></>}
             </Button>

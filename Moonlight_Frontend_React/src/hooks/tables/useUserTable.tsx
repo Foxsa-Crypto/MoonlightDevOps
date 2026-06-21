@@ -16,24 +16,24 @@ export function useUserTable(refetch: () => void){
         { name: 'Nome', selector: (row: UserResponseDTO) => row.name, sortable: true },
         { name: 'Email', selector: (row: UserResponseDTO) => row.email },
         { name: 'Cpf', selector: (row: UserResponseDTO) => formatCPF(row.cpf) },
-        { 
-            name: 'Tipo', 
+        {
+            name: 'Tipo',
             selector: (row: UserResponseDTO) => (
                 row.type === "customer" ? 'Cliente': row.type === "admin" ? 'Admin' : ''
-            ) 
+            )
         },
         {
             name: 'Ações',
-            cell: (row: UserResponseDTO) => (
+            cell: (row: UserResponseDTO, rowIndex: number) => (
             <>
-                <Button variant="transparent" onClick={() => handleEdit(row)}>{<PencilIcon size={32}/>}</Button>
-                <Button variant="transparent" onClick={() => setConfirmDeleteId(row.id_user!)}>{<TrashIcon size={32}/>}</Button>
+                <Button id={`user-edit-btn-${rowIndex}`} variant="transparent" onClick={() => handleEdit(row)}>{<PencilIcon size={32}/>}</Button>
+                <Button id={`user-delete-btn-${rowIndex}`} variant="transparent" onClick={() => setConfirmDeleteId(row.id_user!)}>{<TrashIcon size={32}/>}</Button>
             </>
             ),
         }
     ]
 
-    const handleEdit = (row: UserResponseDTO) => { 
+    const handleEdit = (row: UserResponseDTO) => {
         navigate(`/admin/users/edit/${row.id_user}`, { state: {user: row} });
     }
     const handleDelete = async (id_user: number) => {

@@ -23,9 +23,9 @@ export function GameForm({mode, game} : GameFormProps){
     const CategoryIds = game?.categories!
         .map(name => categories.find(category => category.name === name)?.id_category)
         .filter((id_category): id_category is number => id_category !== undefined) ?? [];
-        // "Pega o array de nomes das categorias do jogo e compara esses nomes com os do banco de categorias, se for igual... 
-        // → Pega o ID dessa categoria 
-        // → Limpa o lixo (undefined ou null) 
+        // "Pega o array de nomes das categorias do jogo e compara esses nomes com os do banco de categorias, se for igual...
+        // → Pega o ID dessa categoria
+        // → Limpa o lixo (undefined ou null)
         // → Se der ruim, me dá um array vazio."
 
     const { fields, ui, setField, handleSubmit, toggleCategory, handleBlur, showErrors, selectOptions } = useGameForm(mode, game ? {
@@ -64,12 +64,12 @@ export function GameForm({mode, game} : GameFormProps){
                         maxLength={50}
                         icon={<TextTIcon size={18} />}
                     />
-                    <FieldVerify showError={showErrors.showErrorTitle} passed={isTitleValid(fields.title)} errorMessage="O titulo do jogo tem que ter 1 ou até no maximo 50 caracteres"/> 
+                    <FieldVerify showError={showErrors.showErrorTitle} passed={isTitleValid(fields.title)} errorMessage="O titulo do jogo tem que ter 1 ou até no maximo 50 caracteres"/>
                 </div>
                 <div>
                     <InputFieldForm
                         id="game-price" label="Preço" type="text"
-                        value={fields.price} 
+                        value={fields.price}
                         onChangeState={(value: string) => {
                             const masked = maskPrice(value);
                             setField("price")(masked)
@@ -89,7 +89,7 @@ export function GameForm({mode, game} : GameFormProps){
                     placeholder="Descrição do jogo" maxLength={255}
                 />
             </div>
-            
+
             <div className="max-lg:flex max-lg:flex-col lg:grid lg:grid-cols-3 gap-4">
                 <div>
                     <InputFieldForm
@@ -131,9 +131,9 @@ export function GameForm({mode, game} : GameFormProps){
                 </div>
                 <div>
                     <SelectForm icon={<SealCheckIcon size={20} weight="thin" />}
-                        id="game-active" 
-                        label="Jogo ativo (visível na loja)" 
-                        variant="terciary" 
+                        id="game-active"
+                        label="Jogo ativo (visível na loja)"
+                        variant="terciary"
                         options={selectOptions}
                         value={String(fields.active)}
                         onChangeState={setField("active")}
@@ -143,15 +143,16 @@ export function GameForm({mode, game} : GameFormProps){
                 </div>
             </div>
             <div className="flex flex-col gap-2">
-                <label className="text-white text-sm">Categorias</label>
+                <label htmlFor="game-categories-checkbox" className="text-white text-sm">Categorias</label>
                 <div className="flex flex-wrap gap-2">
                     {categories.map(category => (
-                        <label key={category.id_category} className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-md px-3 py-2 cursor-pointer">
+                        <label id={`game-categories-label-${category.id_category}`} key={category.id_category} className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-md px-3 py-2 cursor-pointer">
                             <input
-                                type="checkbox"
-                                checked={fields.categories.includes(category.id_category!)}
-                                onChange={() => toggleCategory(category.id_category!)}
-                                className="w-4 h-4"
+                              id={`game-categories-checkbox-${category.id_category}`}
+                              type="checkbox"
+                              checked={fields.categories.includes(category.id_category!)}
+                              onChange={() => toggleCategory(category.id_category!)}
+                              className="w-4 h-4"
                             />
                             <span className="text-white text-sm">{category.name}</span>
                         </label>
@@ -164,10 +165,11 @@ export function GameForm({mode, game} : GameFormProps){
             )}
 
             <Button
-                onClick={() => handleSubmit(game?.id_game)}
-                disabled={ui.loading}
-                variant="primary"
-                className="w-full py-3.5 rounded-md text-sm tracking-widest uppercase font-medium flex items-center justify-center gap-2 mt-2"
+              id="game-submit-btn"
+              onClick={() => handleSubmit(game?.id_game)}
+              disabled={ui.loading}
+              variant="primary"
+              className="w-full py-3.5 rounded-md text-sm tracking-widest uppercase font-medium flex items-center justify-center gap-2 mt-2"
             >
                 {ui.loading ? <LoadingDots /> : <>{mode === "create" ? "Cadastrar Jogo" : "Salvar Alterações"} <ArrowRightIcon size={16} weight="bold" /></>}
             </Button>

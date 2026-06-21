@@ -24,21 +24,21 @@ export function GameDashboardPage(){
 
     const {games, isLoading, refetch, onPageChange, totalRows} = useFetchGamesTable(query);
     const {GameColumns, confirmDeleteId, setConfirmDeleteId, handleDelete} = useGameTable(refetch);
-    
+
     return(
         <main className="py-15 min-h-screen bg-gradient-to-b from-night-soft via-night-soft to-night">
 
-            { confirmDeleteId && 
-                <ConfirmModal 
+            { confirmDeleteId &&
+                <ConfirmModal
                     icon={
                         <div className="w-10 h-10 rounded-full bg-red-500/15 border border-red-500/30 flex items-center justify-center">
                             <WarningIcon size={18} color="#f87171" />
                         </div>
                     }
-                    title="Apagar Registro" 
-                    message="Tem certeza de que deseja apagar este registro?" 
-                    onConfirm={() => handleDelete(confirmDeleteId)} 
-                    onCancel={() => setConfirmDeleteId(null)} 
+                    title="Apagar Registro"
+                    message="Tem certeza de que deseja apagar este registro?"
+                    onConfirm={() => handleDelete(confirmDeleteId)}
+                    onCancel={() => setConfirmDeleteId(null)}
                 />
             }
 
@@ -47,18 +47,18 @@ export function GameDashboardPage(){
             </header>
 
             <div className="container justify-self-center">
-                <Table 
-                    columns={GameColumns} 
-                    data={games || []} 
+                <Table
+                    columns={GameColumns}
+                    data={games || []}
                     isLoading={isLoading}
                     subHeader
                     subHeaderComponent={
-                        <Button as="link" href="/admin/games/create" variant="cta" className="flex items-center gap-2 px-4 py-2 rounded-md">
+                        <Button id="game-add-btn" as="link" href="/admin/games/create" variant="cta" className="flex items-center gap-2 px-4 py-2 rounded-md">
                             <PlusIcon size={32} weight="thin" /> Cadastrar Jogo
                         </Button>
                     }
                     onPageChange={onPageChange}
-                    totalRows={totalRows} 
+                    totalRows={totalRows}
                 />
             </div>
         </main>
