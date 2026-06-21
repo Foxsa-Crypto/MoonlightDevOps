@@ -109,7 +109,7 @@ ALTER TABLE `favorite` ADD CONSTRAINT `fk_favorite_game` FOREIGN KEY (`id_game`)
 
 ALTER TABLE `price_audit` ADD CONSTRAINT `fk_price_audit_games` FOREIGN KEY (`id_game`) REFERENCES `game` (`id_game`) ON DELETE CASCADE;
 
-INSERT INTO user (name, email, cpf, password, type) VALUES ('DominicTorresmo', 'dominic@familia.com', '52405264005', '$2b$12$uoBWRR4eb/srXO969IGxmeoVWM9.KpJIlPa//G2Iv49If5w7KBJJ.', 'admin')
+INSERT INTO user (name, email, cpf, password, type) VALUES ('DominicTorresmo', 'dominic@familia.com', '52405264005', '$2b$12$uoBWRR4eb/srXO969IGxmeoVWM9.KpJIlPa//G2Iv49If5w7KBJJ.', 'admin');
 /* a senha é Familia123 */
 
 -- ==========================================
