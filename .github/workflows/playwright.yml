@@ -1,27 +1,83 @@
 name: Playwright Tests
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Criar .env
+        run: |
+          printf '%s\n' \
+            "DB_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" \
+            "DB_HOST=${{ secrets.MYSQL_HOST }}" \
+            "DB_USER=${{ secrets.MYSQL_USER }}" \
+            "DB_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" \
+            "DB_DATABASE_NAME=${{ secrets.MYSQL_DATABASE_NAME }}" \
+            "JWT_SECRET=${{ secrets.JWT_SECRET }}" \
+            "MERCADOPAGO_ACCESS_TOKEN=${{ secrets.MERCADOPAGO_ACCESS_TOKEN }}" \
+            "NGROK_URL=${{ secrets.NGROK_URL }}" \
+            "PORT=3000" \
+            "VITE_API_URL=https://moonlight.local/" \
+            "VITE_USE_MOCK=false" \
+            "VITE_MP_PUBLIC_KEY=${{ secrets.VITE_MP_PUBLIC_KEY }}" \
+          > .env
+
+      - name: Instalar mkcert e gerar certificados
+        run: |
+          sudo apt-get install -y libnss3-tools
+          curl -Lo mkcert https://github.com/FiloSottile/mkcert/releases/latest/download/mkcert-v1.4.4-linux-amd64
+          chmod +x mkcert && sudo mv mkcert /usr/local/bin
+          mkcert -install
+          mkdir -p nginx/certs
+          mkcert -cert-file nginx/certs/moonlight.local.pem \
+                -key-file  nginx/certs/moonlight.local-key.pem \
+                moonlight.local
+
+      - name: Configurar /etc/hosts ao adicionar moonlight.local nele
+        run: echo "127.0.0.1 moonlight.local" | sudo tee -a /etc/hosts
+
+      - name: Subir Docker Compose
+        run: docker compose up -d --build
+
+      - name: Aguardar banco e importar schema
+        run: |
+          echo "Aguardando MySQL..."
+          timeout 60 bash -c 'until docker compose exec -T database mysqladmin ping -u root -p${{ secrets.MYSQL_ROOT_PASSWORD }} --silent 2>/dev/null; do sleep 3; done'
+          echo "Importando schema..."
+          docker compose exec -T database mysql -u root -p${{ secrets.MYSQL_ROOT_PASSWORD }} moonlight < database_arquives/moonlight.sql
+
+      - name: Aguardar serviços
+        run: |
+          echo "Aguardando aplicação..."
+          timeout 120 bash -c 'until curl -k -sf https://moonlight.local > /dev/null 2>&1; do sleep 5; echo "Aguardando..."; done'
+          echo "Aplicação no ar!"
+
+      - name: Rodar testes Playwright
+        run: npx playwright test
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
