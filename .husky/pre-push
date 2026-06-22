@@ -1,0 +1,19 @@
+#!/bin/sh
+echo "🧪 Rodando testes e2e..."
+
+if ! docker compose ps | grep -q "running"; then
+  echo "⚠️  Docker Compose não está rodando."
+  echo "   Suba os containers com: docker compose up -d"
+  echo "   Os testes e2e serão pulados localmente."
+  exit 0
+fi
+
+npm run test:e2e
+
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Testes e2e falharam! Push bloqueado."
+  exit 1
+fi
+
+echo "✅ Testes passaram!"

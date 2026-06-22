@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Repositório feito para versionamento em produção das duas partes do nosso projeto principal",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "prepare": "husky"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Foxsa-Crypto/MoonlightDevOps.git"
@@ -18,6 +20,7 @@
   "homepage": "https://github.com/Foxsa-Crypto/MoonlightDevOps#readme",
   "devDependencies": {
     "@playwright/test": "^1.60.0",
-    "@types/node": "^25.9.2"
+    "@types/node": "^25.9.2",
+    "husky": "^9.1.7"
   }
 }
