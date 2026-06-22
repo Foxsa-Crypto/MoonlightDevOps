@@ -4,7 +4,8 @@
   "description": "Repositório feito para versionamento em produção das duas partes do nosso projeto principal",
   "main": "index.js",
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:e2e": "playwright test"
   },
   "repository": {
     "type": "git",
