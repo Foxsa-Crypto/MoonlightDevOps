@@ -7,14 +7,14 @@ export type GamePayload = {
   image?: string;
   banner_image?: string;
   link?: string;
-  launch_date: Date;
+  launch_date: Date | string;
   active: boolean;
   categories?: number[]
 }
 
 /***
  * Payload de Query Paginada de Jogos
- * 
+ *
  * vai poder usar nas paginas de categoria, em filtro de jogos ou para a pagina principal por exemplo.
  * admin poderá usar a variavel de active pra ver os jogos desativados
  */
