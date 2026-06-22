@@ -21,9 +21,9 @@ test.describe('CRUD de Games', () => {
     await page.fill('input#game-title', nomeGame);
     await page.fill('input#game-price', '49.99');
     await page.fill('input#game-date', '2024-01-01');
-    await page.locator('select#game-active').selectOption('true');
+    await page.locator('select#game-active').selectOption('false');
 
-    await page.check('input#game-categories-checkbox-1');
+    await page.locator('label:has-text("FPS")').locator('input[type="checkbox"]').check();
 
     await page.click('button#game-submit-btn');
 
@@ -47,11 +47,14 @@ test.describe('CRUD de Games', () => {
     // Clica no botão de editar da primeira linha
     await page.click('button#game-edit-btn-0');
 
-    await page.waitForURL('/admin/games/edit/1');
+    await page.waitForURL(/\/admin\/games\/edit\/\d+/);
 
     const inputTitulo = page.locator('input#game-title');
     await inputTitulo.fill('');
     await inputTitulo.fill(nomeGameEditado);
+
+    await page.locator('select#game-active').selectOption('false');
+    await page.locator('label:has-text("FPS")').locator('input[type="checkbox"]').check();
 
     await page.click('button#game-submit-btn');
 
