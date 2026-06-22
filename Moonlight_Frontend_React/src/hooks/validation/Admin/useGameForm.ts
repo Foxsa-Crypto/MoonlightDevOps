@@ -101,7 +101,7 @@ export function useGameForm(mode: GameFormData, initialData?: InitialData){
         image: fields.image || undefined,
         banner_image: fields.banner_image || undefined,
         link: fields.link || undefined,
-        launch_date: new Date(fields.launch_date),
+        launch_date: new Date(fields.launch_date).toISOString().split("T")[0],
         active: fields.active,
         categories: fields.categories,
     });
