@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test';
 import { loginAsAdmin } from '../helpers/auth';
 
 const timestamp = Date.now();
-const nomeGame = `Game Teste ${timestamp}`;
-const nomeGameEditado = `Game Editado ${timestamp}`;
+const nomeGame = `GamTeste ${timestamp}`;
+const nomeGameEditado = `GamEditado ${timestamp}`;
 
 test.describe('CRUD de Games', () => {
 
@@ -28,6 +28,11 @@ test.describe('CRUD de Games', () => {
     await page.click('button#game-submit-btn');
 
     await expect(page).toHaveURL('/admin/games');
+
+    await page.fill('input#game-title-search', nomeGame);
+    await page.click('button#game-title-search-desktop-btn');
+
+    await expect(page.locator(`text=${nomeGame}`)).toBeVisible();
   });
 
   test('cadastrar: falha com campos obrigatórios vazios', async ({ page }) => {
@@ -44,6 +49,9 @@ test.describe('CRUD de Games', () => {
     await loginAsAdmin(page);
     await page.goto('/admin/games');
 
+    await page.fill('input#game-title-search', nomeGame);
+    await page.click('button#game-title-search-desktop-btn');
+
     // Clica no botão de editar da primeira linha
     await page.click('button#game-edit-btn-0');
 
@@ -59,6 +67,11 @@ test.describe('CRUD de Games', () => {
     await page.click('button#game-submit-btn');
 
     await expect(page).toHaveURL('/admin/games');
+
+    await page.fill('input#game-title-search', nomeGameEditado);
+    await page.click('button#game-title-search-desktop-btn');
+
+    await expect(page.locator(`text=${nomeGameEditado}`)).toBeVisible();
   });
 
   test('excluir: cancelar não remove o game', async ({ page }) => {
@@ -81,13 +94,13 @@ test.describe('CRUD de Games', () => {
     await loginAsAdmin(page);
     await page.goto('/admin/games');
 
-    const primeiraLinha = page.locator('#row-0').first();
-    const nomeAntes = await primeiraLinha.locator('.rdt_TableCell').first().innerText();
+    await page.fill('input#game-title-search', nomeGameEditado);
+    await page.click('button#game-title-search-desktop-btn');
 
     await page.click('button#game-delete-btn-0');
 
     await page.click('button#modal-confirm-btn');
 
-    await expect(page.locator(`text=${nomeAntes}`)).not.toBeVisible();
+    await expect(page.locator(`text=${nomeGameEditado}`)).not.toBeVisible();
   });
 });
