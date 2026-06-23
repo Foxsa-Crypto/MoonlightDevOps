@@ -18,8 +18,8 @@ export function GameFilterSideBar(props: GameFilterSideBarProps) {
   const { styles } = getAnimationState(props.open);
   const { categories } = useFetchCategories();
   const { filters } = useGameFilters();
-  const gameActive = getAnimationState(filters.active === "true").styles;
-  const gameNotActive = getAnimationState(filters.active === "false").styles;
+  const gameActive = getAnimationState(filters.active == true).styles;
+  const gameNotActive = getAnimationState(filters.active == false).styles;
 
   // estado local — segura o que o usuário está digitando
   const [priceMin, setPriceMin] = useState(filters.price_min ? String(filters.price_min) : "0.00");
