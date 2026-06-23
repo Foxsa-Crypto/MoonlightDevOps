@@ -5,7 +5,7 @@ import { useLoginForm } from "../../../../../hooks/validation/customer/useLoginF
 import { InputFieldForm } from "../../../../../components/common/Forms/InputFieldForm";
 import { FieldVerify } from "../../../../../components/common/Forms/VerifyComponents/FieldVerify";
 import { isEmailValid } from "../../../../../utils/Validation/dataRules/User/userEmail";
- 
+
 export function LoginForm() {
 
     const {fields, ui, showErrors, setField, handleBlur, toggleShowPassword, handleSubmit} = useLoginForm();
@@ -38,7 +38,7 @@ export function LoginForm() {
                 onBlur={handleBlur("password")} maxLength={16}
                 icon={<LockKeyIcon size={18} />} placeholder="Escrever minha senha"
                 rightElement={
-                    <Button onClick={toggleShowPassword} className="p-0.5 bg-white/5 border rounded-md">
+                    <Button id="log-pass-btn-showpassword" onClick={toggleShowPassword} className="p-0.5 bg-white/5 border rounded-md">
                         {ui.showPassword ? <EyeSlashIcon size={18} /> : <EyeIcon size={18} />}
                     </Button>
                 }
@@ -48,16 +48,17 @@ export function LoginForm() {
             {ui.apiError && (
                 <p className="text-sm text-red-400 text-center">{ui.apiError}</p>
             )}
- 
+
             <Button
                 onClick={handleSubmit} disabled={ui.loading}
+                id="log-submit-btn"
                 as="button"
-                variant="primary" 
+                variant="primary"
                 className="w-full py-3.5 rounded-md text-sm tracking-widest uppercase font-medium flex items-center justify-center gap-2 mt-2"
             >
                 {ui.loading ? <LoadingDots /> : <>Fazer Login <ArrowRightIcon size={16} weight="bold" /></>}
             </Button>
- 
+
             <p className="text-center text-xs text-white/30">
                 Não tem uma conta?{" "}
                 <Button variant="transparent" as="link" href="/register" className="text-white/70 hover:text-white underline-offset-2 hover:underline transition-all">

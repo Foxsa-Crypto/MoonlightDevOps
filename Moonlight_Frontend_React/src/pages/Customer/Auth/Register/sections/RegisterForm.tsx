@@ -65,7 +65,7 @@ export function RegisterForm() {
                 onBlur={handleBlur("password")} maxLength={16}
                 icon={<LockKeyIcon size={18} />} placeholder="Escreva uma senha forte"
                 rightElement={
-                    <Button onClick={toggleShowPassword} className="p-0.5 bg-white/5 border rounded-md">
+                    <Button id="reg-pass-btn-showpassword" onClick={toggleShowPassword} className="p-0.5 bg-white/5 border rounded-md">
                         {ui.showPassword ? <EyeSlashIcon size={18} /> : <EyeIcon size={18} />}
                     </Button>
                 }
@@ -73,13 +73,13 @@ export function RegisterForm() {
             <PasswordStrength password={fields.password} showError={showErrors.showErrorPassword} />
 
             <InputFieldForm
-                id="reg-confirm" label="Confirmar senha"
+                id="reg-confirmpassword" label="Confirmar senha"
                 type={ui.showConfirm ? "text" : "password"}
                 value={fields.confirmPassword} onChangeState={setField("confirmPassword")}
                 onBlur={handleBlur("confirmPassword")} maxLength={16}
                 icon={<LockKeyIcon size={18} />} placeholder="Confirme a senha"
                 rightElement={
-                    <Button onClick={toggleShowConfirm} className="p-0.5 bg-white/5 border rounded-md">
+                    <Button id="reg-confirmpassword-btn-showpassword" onClick={toggleShowConfirm} className="p-0.5 bg-white/5 border rounded-md">
                         {ui.showConfirm ? <EyeSlashIcon size={18} /> : <EyeIcon size={18} />}
                     </Button>
                 }
@@ -96,8 +96,9 @@ export function RegisterForm() {
 
             <Button
                 onClick={handleSubmit} disabled={ui.loading}
+                id="reg-submit-btn"
                 as="button"
-                variant="primary" 
+                variant="primary"
                 className="w-full py-3.5 rounded-md text-sm tracking-widest uppercase font-medium flex items-center justify-center gap-2 mt-2"
             >
                 {ui.loading ? <LoadingDots /> : <>Criar Conta <ArrowRightIcon size={16} weight="bold" /></>}

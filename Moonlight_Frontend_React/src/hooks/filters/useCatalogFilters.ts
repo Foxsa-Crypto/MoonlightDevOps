@@ -1,27 +1,10 @@
-import { useSearchParams } from "react-router-dom";
+import { useUpdateUrlParam } from "../updateUrlParam/useUpdateUrlParam";
 
+/**
+ * hook para usar e centralizar filtros de catalogo da loja sem maiores problemas.
+ */
 export function useCatalogFilters() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const updateURLParam = (key: string, value: string | undefined) => {
-    setSearchParams((prev) => {
-      if (value) prev.set(key, value);
-      else prev.delete(key);
-      return prev;
-    });
-  };
-
-  const updateURLParams = (
-    paramsToUpdate: Record<string, string | undefined>,
-  ) => {
-    setSearchParams((prev) => {
-      Object.entries(paramsToUpdate).forEach(([key, value]) => {
-        if (value) prev.set(key, value);
-        else prev.delete(key);
-      });
-      return prev;
-    });
-  };
+  const { searchParams, updateURLParam, updateURLParams } = useUpdateUrlParam();
 
   const filters = {
     title: searchParams.get("title") ?? undefined,
@@ -46,8 +29,6 @@ export function useCatalogFilters() {
   };
 
   return {
-    filters,
-    updateURLParam,
-    updateURLParams,
+    filters
   };
 }

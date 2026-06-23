@@ -45,7 +45,7 @@ export function UserForm({mode, user} : UserFormProps){
             <div className="max-lg:flex max-lg:flex-col lg:grid lg:grid-cols-3 gap-4">
                 <div>
                     <InputFieldForm
-                        id="createUser-name" label="Nome de usuário" type="text"
+                        id="user-name" label="Nome de usuário" type="text"
                         value={fields.name} onChangeState={setField("name")}
                         onBlur={handleBlur("name")} maxLength={16}
                         icon={<UserIcon size={18} />} placeholder="Escreva seu nome"
@@ -54,11 +54,11 @@ export function UserForm({mode, user} : UserFormProps){
                 </div>
                 <div>
                     <InputFieldForm
-                        id="createUser-cpf" label="CPF" type="text" inputMode="numeric"
-                        autoComplete="off" 
+                        id="user-cpf" label="CPF" type="text" inputMode="numeric"
+                        autoComplete="off"
                         value={
                             formatCPF(fields.cpf)
-                        } 
+                        }
                         onChangeState={(value: string) => {
                             const masked = formatCPF(value);
                             setField("cpf")(masked)
@@ -71,7 +71,7 @@ export function UserForm({mode, user} : UserFormProps){
                 </div>
                 <div>
                     <InputFieldForm
-                        id="createUser-email" label="Email" type="email"
+                        id="user-email" label="Email" type="email"
                         value={fields.email} onChangeState={setField("email")}
                         onBlur={handleBlur("email")} maxLength={30}
                         icon={<EnvelopeIcon size={18} />} placeholder="Escreva seu email"
@@ -82,7 +82,7 @@ export function UserForm({mode, user} : UserFormProps){
             <div className="max-lg:flex max-lg:flex-col lg:grid lg:grid-cols-3 gap-4">
                 <div>
                     <InputFieldForm
-                        id="createUser-password" label="Senha"
+                        id="user-password" label="Senha"
                         type={ui.showPassword ? "text" : "password"}
                         value={fields.password} onChangeState={setField("password")}
                         onBlur={handleBlur("password")} maxLength={16}
@@ -97,7 +97,7 @@ export function UserForm({mode, user} : UserFormProps){
                 </div>
                 <div>
                     <InputFieldForm
-                        id="createUser-confirm" label="Confirmar senha"
+                        id="user-confirm" label="Confirmar senha"
                         type={ui.showConfirm ? "text" : "password"}
                         value={fields.confirmPassword} onChangeState={setField("confirmPassword")}
                         onBlur={handleBlur("confirmPassword")} maxLength={16}
@@ -115,17 +115,17 @@ export function UserForm({mode, user} : UserFormProps){
                     />
                 </div>
                 <div>
-                    <SelectForm icon={<IdentificationCardIcon size={20} weight="thin" />} 
-                        id="createUser-select" 
-                        label="Tipo de Usuario" 
-                        variant="terciary" 
+                    <SelectForm icon={<IdentificationCardIcon size={20} weight="thin" />}
+                        id="user-type-select"
+                        label="Tipo de Usuario"
+                        variant="terciary"
                         options={selectOptions}
                         value={fields.type}
                         onChangeState={setField("type")}
                         onBlur={handleBlur("type")}
                     />
                     <FieldVerify passed={isUserTypeValid(fields.type)} showError={showErrors.showErrorUserType} errorMessage="Escolha um tipo válido"/>
-                </div> 
+                </div>
             </div>
 
             {ui.apiError && (
@@ -133,10 +133,11 @@ export function UserForm({mode, user} : UserFormProps){
             )}
 
             <Button
-                onClick={() => handleSubmit(user?.id_user)} disabled={ui.loading}
-                as="button" 
-                variant="primary"
-                className="w-full py-3.5 rounded-md text-sm tracking-widest uppercase font-medium flex items-center justify-center gap-2 mt-2"
+              id="user-submit-btn"
+              onClick={() => handleSubmit(user?.id_user)} disabled={ui.loading}
+              as="button"
+              variant="primary"
+              className="w-full py-3.5 rounded-md text-sm tracking-widest uppercase font-medium flex items-center justify-center gap-2 mt-2"
             >
                 {ui.loading ? <LoadingDots /> : <>{mode === "create" ? "Cadastrar Usuario" : "Salvar Alterações"} <ArrowRightIcon size={16} weight="bold" /></>}
             </Button>
