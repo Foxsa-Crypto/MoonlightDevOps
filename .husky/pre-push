@@ -1,19 +1,19 @@
 #!/bin/sh
 echo "🧪 Rodando testes e2e..."
 
-if [ -z "$(docker compose ps --status=running -q)" ]; then
+if [ -z "$(docker compose ps --status=running -q nginx 2>/dev/null)" ]; then
     echo "⚠️  Docker Compose não está rodando."
-    echo "   Suba os containers com: docker compose up -d"
+    echo "   Suba os containers com: docker compose up -d --build"
     echo "   Os testes e2e serão pulados localmente."
-    exit 0
+    exit 1
 fi
 
 npm run test:e2e
+EXIT_CODE=$?
 
-if [ $? -ne 0 ]; then
-  echo ""
-  echo "❌ Testes e2e falharam! Push bloqueado."
+if [ $EXIT_CODE -ne 0 ]; then
+  echo "" >&2
+  echo "❌ Testes e2e falharam! Push bloqueado." >&2
   exit 1
 fi
-
 echo "✅ Testes passaram!"
