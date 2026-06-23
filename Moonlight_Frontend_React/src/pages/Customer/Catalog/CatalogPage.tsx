@@ -5,9 +5,11 @@ import { CatalogSideBar } from "./sections/CatalogSideBar";
 import { useCatalogFilters } from "../../../hooks/filters/useCatalogFilters";
 import { SlidersIcon } from "@phosphor-icons/react/dist/ssr";
 import { Button } from "../../../components/common/Generic/Button/Button";
+import { useUpdateUrlParam } from "../../../hooks/updateUrlParam/useUpdateUrlParam";
 
 export function CatalogPage() {
-  const { filters, updateURLParam } = useCatalogFilters();
+  const { filters } = useCatalogFilters();
+  const { updateURLParam } = useUpdateUrlParam();
   const [title, setTitle] = useState(filters.title ?? "");
   const [drawerOpen, setDrawerOpen] = useState(false);
 

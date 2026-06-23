@@ -1,9 +1,6 @@
-import { useUpdateUrlParam } from "../updateUrlParam/useUpdateUrlParam";
+import { useUpdateUrlParam } from "../../updateUrlParam/useUpdateUrlParam";
 
-/**
- * hook para usar e centralizar filtros de catalogo da loja sem maiores problemas.
- */
-export function useCatalogFilters() {
+export function useGameFilters() {
   const { searchParams, updateURLParam, updateURLParams } = useUpdateUrlParam();
 
   const filters = {
@@ -17,7 +14,11 @@ export function useCatalogFilters() {
     price_max: searchParams.get("price_max")
       ? Number(searchParams.get("price_max"))
       : undefined,
-    onChangeCategory: (value: string) => updateURLParam("category", value),
+    active: searchParams.get("active") === "true" ? true
+          : searchParams.get("active") === "false" ? false
+          : undefined,
+    onChangeCategory: (category: string) => updateURLParam("category", category),
+    onChangeActive: (active: string) => updateURLParam("active", active),
     onPriceCleanUp: () =>
       updateURLParams({ price_min: undefined, price_max: undefined }),
     onConfirmPrice: (min: string, max: string) =>
