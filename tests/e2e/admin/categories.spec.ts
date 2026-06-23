@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test';
 import { loginAsAdmin } from '../helpers/auth';
 
 const timestamp = Date.now();
-const nomeCategoria = `Categoria Teste ${timestamp}`;
-const nomeCategoriaEditada = `Categoria Editada ${timestamp}`;
+const nomeCategoria = `CatTeste ${timestamp}`;
+const nomeCategoriaEditada = `CatEditada ${timestamp}`;
 
 test.describe('CRUD de Categorias', () => {
 
@@ -26,6 +26,11 @@ test.describe('CRUD de Categorias', () => {
     await page.click('button#category-submit-btn');
 
     await expect(page).toHaveURL('/admin/categories');
+
+    await page.fill('input#category-name-search', nomeCategoria);
+    await page.click('button#category-name-search-desktop-btn');
+
+    await expect(page.locator(`text=${nomeCategoria}`)).toBeVisible();
   });
 
   test('cadastrar: falha com campos vazios', async ({ page }) => {
@@ -42,11 +47,14 @@ test.describe('CRUD de Categorias', () => {
     await loginAsAdmin(page);
     await page.goto('/admin/categories');
 
+    await page.fill('input#category-name-search', nomeCategoria);
+    await page.click('button#category-name-search-desktop-btn');
+
     // Clica no botão de editar da primeira linha
     await page.click('button#cat-edit-btn-0');
 
     // Aguarda navegar para página de edição
-    await page.waitForURL('/admin/categories/edit/1');
+    await page.waitForURL(/\/admin\/categories\/edit\/\d+/);
 
     // Limpa e preenche o campo de nome
     const inputNome = page.locator('input#category-name');
@@ -56,6 +64,11 @@ test.describe('CRUD de Categorias', () => {
     await page.click('button#category-submit-btn');
 
     await expect(page).toHaveURL('/admin/categories');
+
+    await page.fill('input#category-name-search', nomeCategoriaEditada);
+    await page.click('button#category-name-search-desktop-btn');
+
+    await expect(page.locator(`text=${nomeCategoriaEditada}`)).toBeVisible();
   });
 
   test('excluir: cancelar não remove a categoria', async ({ page }) => {
@@ -78,14 +91,13 @@ test.describe('CRUD de Categorias', () => {
     await loginAsAdmin(page);
     await page.goto('/admin/categories');
 
-    // Pega o texto da primeira linha antes de deletar
-    const primeiraLinha = page.locator('#row-0').first();
-    const nomeAntes = await primeiraLinha.locator('.rdt_TableCell').first().innerText();
+    await page.fill('input#category-name-search', nomeCategoriaEditada);
+    await page.click('button#category-name-search-desktop-btn');
 
     await page.click('button#cat-delete-btn-0');
 
     await page.click('button#modal-confirm-btn');
 
-    await expect(page.locator(`text=${nomeAntes}`)).not.toBeVisible();
+    await expect(page.locator(`text=${nomeCategoriaEditada}`)).not.toBeVisible();
   });
 });
