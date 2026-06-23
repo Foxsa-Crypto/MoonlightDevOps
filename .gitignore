@@ -3,6 +3,7 @@
 nginx/certs/
 node_modules/
 *.log
+docker-compose.override.yml
 
 # Playwright
 /test-results/
